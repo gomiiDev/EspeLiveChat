@@ -64,3 +64,12 @@
   background-color: #006633; /* Verde institucional al hover */
   color: #ffffff; /* Texto blanco */
 }
+#typing-indicator {
+  min-height: 24px;
+  padding: 4px 25px;
+  font-size: 13px;
+  font-style: italic;
+  color: #006633;
+  background-color: #f0f7f0;
+  transition: opacity 0.2s ease;
+}
