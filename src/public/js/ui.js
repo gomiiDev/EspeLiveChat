@@ -28,23 +28,39 @@ function buildAvatar(username) {
   return `<div class="avatar" style="background-color:${bg};color:${text};">${letter}</div>`;
 }
 
+function buildTextElement(tagName, className, value) {
+  const element = document.createElement(tagName);
+  if (className) {
+    element.className = className;
+  }
+  element.textContent = value;
+  return element;
+}
+
 // --- Append a new message to the chat ---
 function appendMessage({ user, message, date, isOwn }) {
-  const fragment = document.createRange().createContextualFragment(`
-    <div class="message ${isOwn ? "own" : "other"}">
-      <div class="image-container">
-        ${buildAvatar(user)}
-      </div>
-      <div class="message-body">
-        <div class="user-info">
-          <span class="username">${user}</span>
-          <span class="time">${date}</span>
-        </div>
-        <p>${message}</p>
-      </div>
-    </div>
-  `);
-  allMessages.append(fragment);
+  const wrapper = document.createElement("div");
+  wrapper.className = `message ${isOwn ? "own" : "other"}`;
+
+  const imageContainer = document.createElement("div");
+  imageContainer.className = "image-container";
+  imageContainer.innerHTML = buildAvatar(user);
+
+  const messageBody = document.createElement("div");
+  messageBody.className = "message-body";
+
+  const userInfo = document.createElement("div");
+  userInfo.className = "user-info";
+
+  const username = buildTextElement("span", "username", user);
+  const time = buildTextElement("span", "time", date);
+  const paragraph = buildTextElement("p", "", message);
+
+  userInfo.append(username, time);
+  messageBody.append(userInfo, paragraph);
+  wrapper.append(imageContainer, messageBody);
+
+  allMessages.append(wrapper);
   allMessages.scrollTop = allMessages.scrollHeight;
 }
 

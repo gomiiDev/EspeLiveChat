@@ -5,6 +5,20 @@ const currentUser = getCurrentUser();
 const send = document.querySelector("#send-message");
 const messageInput = document.querySelector("#message");
 
+function getCleanMessage() {
+  return messageInput.value.trim();
+}
+
+function stopTyping() {
+  if (!isTyping) {
+    return;
+  }
+
+  isTyping = false;
+  clearTimeout(typingTimeout);
+  socket.emit("stopTyping");
+}
+
 // --- Typing debounce ---
 let isTyping = false;
 let typingTimeout = null;
@@ -16,19 +30,22 @@ messageInput.addEventListener("input", () => {
   }
   clearTimeout(typingTimeout);
   typingTimeout = setTimeout(() => {
-    isTyping = false;
-    socket.emit("stopTyping");
+    stopTyping();
   }, 1500);
 });
 
 // --- Send message ---
 send.addEventListener("click", () => {
-  if (isTyping) {
-    isTyping = false;
-    clearTimeout(typingTimeout);
-    socket.emit("stopTyping");
+  const cleanMessage = getCleanMessage();
+
+  if (!cleanMessage) {
+    messageInput.value = "";
+    stopTyping();
+    return;
   }
-  socket.emit("message", messageInput.value);
+
+  stopTyping();
+  socket.emit("message", cleanMessage);
   messageInput.value = "";
 });
 
