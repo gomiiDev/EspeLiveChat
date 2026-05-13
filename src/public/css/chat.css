@@ -1,41 +1,121 @@
 #all-messages {
-  padding: 50px 25px;
-  background-color: #ffffff; /* Fondo blanco institucional */
+  padding: 20px 25px;
+  background-color: #ffffff;
+  overflow-y: auto;
+  flex: 1;
 }
 
+/* --- Base message layout --- */
 .message {
   display: flex;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
+  max-width: 75%;
+}
+
+/* --- Other users: left side --- */
+.message.other {
+  align-self: flex-start;
+  flex-direction: row;
+  margin-right: auto;
+}
+
+/* --- Own messages: right side --- */
+.message.own {
+  align-self: flex-end;
+  flex-direction: row-reverse;
+  margin-left: auto;
 }
 
 .message .image-container {
-  width: 50px;
-  align-items: flex-start;
+  width: 40px;
+  flex-shrink: 0;
+  align-self: flex-start;
 }
 
-.message .message-body {
-  margin-left: 10px;
-  width: calc(100% - 50px);
-}
-
-.message .message-body .user-info {
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-weight: bold;
-  color: #006633; /* Verde institucional */
+  font-size: 16px;
+  user-select: none;
+  flex-shrink: 0;
 }
 
-.message .message-body .user-info .time {
-  color: #ffd700; /* Amarillo institucional */
-  font-size: 13px;
-}
-
-.message .message-body p {
-  margin-top: 5px;
-  color: #333333; /* Texto más legible sobre fondo blanco */
+/* --- Message body --- */
+.message .message-body {
+  max-width: calc(100% - 50px);
+  padding: 8px 12px;
+  border-radius: 12px;
   font-size: 14px;
 }
 
+.message.other .message-body {
+  margin-left: 8px;
+  background-color: #f0f7f0;
+  border-top-left-radius: 0;
+  color: #333333;
+}
+
+.message.own .message-body {
+  margin-right: 8px;
+  background-color: #006633;
+  border-top-right-radius: 0;
+  color: #ffffff;
+}
+
+/* --- User info line --- */
+.message .message-body .user-info {
+  font-weight: bold;
+  font-size: 12px;
+  margin-bottom: 4px;
+}
+
+.message.other .message-body .user-info {
+  color: #006633;
+}
+
+.message.own .message-body .user-info {
+  color: #ffd700;
+  text-align: right;
+}
+
+.message .message-body .user-info .time {
+  font-size: 11px;
+  margin-left: 6px;
+  font-weight: normal;
+}
+
+.message.other .message-body .user-info .time {
+  color: #999999;
+}
+
+.message.own .message-body .user-info .time {
+  color: #ccffcc;
+}
+
+/* --- Message text --- */
+.message .message-body p {
+  margin: 0;
+  word-break: break-word;
+}
+
+.message.own .message-body p {
+  text-align: right;
+}
+
+/* Make #all-messages a flex column so align-self works */
+#all-messages {
+  display: flex;
+  flex-direction: column;
+}
+
+/* --- Send bar --- */
 .send-message {
-  background: #006633; /* Verde institucional */
+  background: #006633;
   padding: 10px;
   display: flex;
 }
@@ -43,15 +123,15 @@
 .send-message input {
   width: 100%;
   padding: 7px 5px;
-  border: 1px solid #006633; /* Borde verde */
+  border: 1px solid #006633;
   border-radius: 4px;
   outline: none;
 }
 
 .send-message button {
   margin-left: 10px;
-  background-color: #ffd700; /* Amarillo institucional */
-  color: #000000; /* Texto negro para contraste */
+  background-color: #ffd700;
+  color: #000000;
   font-weight: bold;
   border: none;
   border-radius: 4px;
@@ -61,9 +141,11 @@
 }
 
 .send-message button:hover {
-  background-color: #006633; /* Verde institucional al hover */
-  color: #ffffff; /* Texto blanco */
+  background-color: #ffffff;
+  color: #006633;
 }
+
+/* --- Typing indicator --- */
 #typing-indicator {
   min-height: 24px;
   padding: 4px 25px;
