@@ -1,0 +1,19 @@
+{
+  "name": "espechat",
+  "version": "1.0.0",
+  "description": "chat con sockets",
+  "license": "ISC",
+  "author": "carlosHernandez",
+  "type": "commonjs",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon src/index.js"
+  },
+  "dependencies": {
+    "cookie-parser": "^1.4.7",
+    "express": "^5.2.1",
+    "nodemon": "^3.1.14",
+    "socket.io": "^4.8.3"
+  }
+}
