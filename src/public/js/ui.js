@@ -2,6 +2,10 @@
 const allMessages = document.querySelector("#all-messages");
 const typingIndicator = document.querySelector("#typing-indicator");
 const chatUserCount = document.querySelector("#chat-user-count");
+const emojiToggle = document.querySelector("#emoji-toggle");
+const emojiPicker = document.querySelector("#emoji-picker");
+
+const EMOJIS = ["😀", "😂", "😍", "😎", "🤝", "🔥", "🎉", "🦖", "🌊", "💬"];
 
 // --- Current user (from cookie) ---
 function getCurrentUser() {
@@ -62,11 +66,92 @@ function appendMessage({ user, message, date, isOwn }) {
   wrapper.append(imageContainer, messageBody);
 
   allMessages.append(wrapper);
-  allMessages.scrollTop = allMessages.scrollHeight;
+  requestAnimationFrame(() => {
+    wrapper.scrollIntoView({ behavior: "smooth", block: "end" });
+  });
 }
 
 function renderUserCount(total) {
   chatUserCount.textContent = `Usuarios conectados: ${total}`;
+}
+
+function insertAtCursor(input, value) {
+  const start = input.selectionStart ?? input.value.length;
+  const end = input.selectionEnd ?? input.value.length;
+  const currentValue = input.value;
+
+  input.value = `${currentValue.slice(0, start)}${value}${currentValue.slice(end)}`;
+  input.focus();
+
+  const newCursorPosition = start + value.length;
+  input.setSelectionRange(newCursorPosition, newCursorPosition);
+  input.dispatchEvent(new Event("input", { bubbles: true }));
+}
+
+function closeEmojiPicker() {
+  emojiPicker.hidden = true;
+}
+
+function positionEmojiPicker() {
+  const rect = emojiToggle.getBoundingClientRect();
+  const pickerWidth = emojiPicker.offsetWidth || 232;
+  const gap = 10;
+  let left = rect.left;
+  let bottom = window.innerHeight - rect.top + gap;
+
+  // Clamp so picker doesn't overflow the right edge
+  if (left + pickerWidth > window.innerWidth - 8) {
+    left = window.innerWidth - pickerWidth - 8;
+  }
+  if (left < 8) left = 8;
+
+  emojiPicker.style.left = `${left}px`;
+  emojiPicker.style.bottom = `${bottom}px`;
+}
+
+function toggleEmojiPicker() {
+  emojiPicker.hidden = !emojiPicker.hidden;
+  if (!emojiPicker.hidden) {
+    positionEmojiPicker();
+  }
+}
+
+function renderEmojiPicker(messageInput) {
+  emojiPicker.replaceChildren();
+
+  EMOJIS.forEach((emoji) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "emoji-option";
+    button.textContent = emoji;
+    button.setAttribute("aria-label", `Insertar ${emoji}`);
+    button.addEventListener("click", () => {
+      insertAtCursor(messageInput, emoji);
+      closeEmojiPicker();
+    });
+    emojiPicker.append(button);
+  });
+}
+
+function initializeEmojiPicker(messageInput) {
+  // Move picker to body so it's never clipped by parent overflow rules
+  document.body.append(emojiPicker);
+
+  renderEmojiPicker(messageInput);
+
+  emojiToggle.addEventListener("click", () => {
+    toggleEmojiPicker();
+  });
+
+  document.addEventListener("click", (event) => {
+    if (emojiPicker.hidden) {
+      return;
+    }
+
+    if (!emojiPicker.contains(event.target) && !emojiToggle.contains(event.target)) {
+      closeEmojiPicker();
+    }
+  });
 }
 
 // --- Typing indicator ---

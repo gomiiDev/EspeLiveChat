@@ -26,21 +26,6 @@ body {
   position: relative;
 }
 
-body::before {
-  content: "";
-  position: fixed;
-  inset: auto 2rem 1.5rem auto;
-  width: min(30vw, 280px);
-  aspect-ratio: 1;
-  background:
-    linear-gradient(145deg, rgba(255, 248, 235, 0.76), rgba(255, 248, 235, 0.16)),
-    url("../img/spino.png") center/contain no-repeat;
-  opacity: 0.24;
-  pointer-events: none;
-  filter: drop-shadow(0 16px 30px rgba(31, 58, 57, 0.16));
-  z-index: 0;
-}
-
 header {
   position: relative;
   z-index: 1;

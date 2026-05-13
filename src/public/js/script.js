@@ -5,6 +5,8 @@ const currentUser = getCurrentUser();
 const send = document.querySelector("#send-message");
 const messageInput = document.querySelector("#message");
 
+initializeEmojiPicker(messageInput);
+
 function getCleanMessage() {
   return messageInput.value.trim();
 }
