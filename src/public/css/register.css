@@ -10,14 +10,25 @@ main form {
   padding: 20px;
   border: 2px solid #006633; /* Borde verde institucional */
   border-radius: 8px;
-  background-color: #f9f9f9; /* Suave contraste */
+  background-color: #f9f9f9; /* Contraste suave */
 }
 
 main form .input-group label {
+  display: block;
   text-align: center;
   margin-bottom: 5px;
   font-weight: bold;
   color: #006633; /* Verde institucional */
+}
+
+main form .input-group input {
+  display: block;
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #006633;
+  border-radius: 4px;
+  outline: none;
+  font-size: 1rem;
 }
 
 main form .button-container {
