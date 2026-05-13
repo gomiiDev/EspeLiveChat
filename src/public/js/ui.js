@@ -1,6 +1,7 @@
 // --- DOM references ---
 const allMessages = document.querySelector("#all-messages");
 const typingIndicator = document.querySelector("#typing-indicator");
+const chatUserCount = document.querySelector("#chat-user-count");
 
 // --- Current user (from cookie) ---
 function getCurrentUser() {
@@ -62,6 +63,10 @@ function appendMessage({ user, message, date, isOwn }) {
 
   allMessages.append(wrapper);
   allMessages.scrollTop = allMessages.scrollHeight;
+}
+
+function renderUserCount(total) {
+  chatUserCount.textContent = `Usuarios conectados: ${total}`;
 }
 
 // --- Typing indicator ---

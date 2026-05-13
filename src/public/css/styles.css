@@ -4,17 +4,65 @@
   box-sizing: border-box;
 }
 
+:root {
+  --spino-deep: #1f3a39;
+  --spino-forest: #2f5d50;
+  --spino-sand: #efe1c6;
+  --spino-bone: #fff8eb;
+  --spino-crest: #d66b2d;
+  --spino-crest-dark: #8f2f28;
+  --spino-ink: #241d1a;
+  --spino-mist: rgba(255, 248, 235, 0.78);
+}
+
 body {
-  font-family: Arial, Helvetica, sans-serif;
-  background-color: #ffffff; /* Fondo blanco institucional */
+  font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+  color: var(--spino-ink);
+  background:
+    radial-gradient(circle at top left, rgba(214, 107, 45, 0.22), transparent 28%),
+    radial-gradient(circle at top right, rgba(143, 47, 40, 0.18), transparent 24%),
+    linear-gradient(180deg, #f7ecda 0%, #dfe6d8 52%, #cdd8d0 100%);
+  min-height: 100vh;
+  position: relative;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: auto 2rem 1.5rem auto;
+  width: min(30vw, 280px);
+  aspect-ratio: 1;
+  background:
+    linear-gradient(145deg, rgba(255, 248, 235, 0.76), rgba(255, 248, 235, 0.16)),
+    url("../img/spino.png") center/contain no-repeat;
+  opacity: 0.24;
+  pointer-events: none;
+  filter: drop-shadow(0 16px 30px rgba(31, 58, 57, 0.16));
+  z-index: 0;
 }
 
 header {
-  background: #006633; /* Verde institucional */
-  color: #ffffff; /* Texto blanco */
-  padding: 7px;
+  position: relative;
+  z-index: 1;
+  background:
+    linear-gradient(110deg, rgba(31, 58, 57, 0.96), rgba(47, 93, 80, 0.92)),
+    linear-gradient(180deg, var(--spino-deep), var(--spino-forest));
+  color: #fff8eb;
+  padding: 18px 20px;
   text-align: center;
   font-weight: bold;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  box-shadow: 0 14px 28px rgba(31, 58, 57, 0.18);
+}
+
+header::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, transparent 0%, rgba(214, 107, 45, 0.18) 52%, transparent 100%);
+  pointer-events: none;
 }
 
 .button-container {
@@ -32,23 +80,28 @@ button:not(:disabled) {
 .btn {
   padding: 0.375rem 0.75rem;
   font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
   text-align: center;
   text-decoration: none;
   border: 1px solid transparent;
-  border-radius: 0.375rem;
+  border-radius: 999px;
   transition:
     color 0.15s ease-in-out,
     background-color 0.15s ease-in-out,
     border-color 0.15s ease-in-out,
-    box-shadow 0.15s ease-in-out;
+    box-shadow 0.15s ease-in-out,
+    transform 0.15s ease-in-out;
   color: var(--btn-color);
   background-color: var(--btn-bg);
+  box-shadow: 0 10px 22px rgba(31, 58, 57, 0.14);
 }
 
 .btn:hover {
   color: var(--btn-hover-color);
   background-color: var(--btn-hover-bg);
   border-color: var(--btn-hover-border-color);
+  transform: translateY(-1px);
 }
 
 .btn:focus {
@@ -67,15 +120,15 @@ button:not(:disabled) {
 
 .primary {
   --btn-color: #ffffff;
-  --btn-bg: #006633; /* Verde institucional */
-  --btn-border-color: #006633;
-  --btn-hover-color: #000000;
-  --btn-hover-bg: #ffd700; /* Amarillo institucional */
-  --btn-hover-border-color: #ffd700;
-  --btn-focus-shadow-rgb: 0, 102, 51; /* Verde institucional en sombra */
+  --btn-bg: var(--spino-forest);
+  --btn-border-color: var(--spino-forest);
+  --btn-hover-color: #fff8eb;
+  --btn-hover-bg: var(--spino-crest);
+  --btn-hover-border-color: var(--spino-crest);
+  --btn-focus-shadow-rgb: 47, 93, 80;
   --btn-active-color: #ffffff;
-  --btn-active-bg: #004422; /* Verde más oscuro */
-  --btn-active-border-color: #004422;
+  --btn-active-bg: var(--spino-deep);
+  --btn-active-border-color: var(--spino-deep);
   --btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
   --btn-disabled-color: #ffffff;
   --btn-disabled-bg: #cccccc; /* Gris para deshabilitado */
@@ -83,16 +136,16 @@ button:not(:disabled) {
 }
 
 .secondary {
-  --btn-color: #000000;
-  --btn-bg: #ffd700; /* Amarillo institucional */
-  --btn-border-color: #ffd700;
-  --btn-hover-color: #ffffff;
-  --btn-hover-bg: #006633; /* Verde institucional al hover */
-  --btn-hover-border-color: #006633;
-  --btn-focus-shadow-rgb: 255, 215, 0; /* Amarillo institucional en sombra */
+  --btn-color: #fff8eb;
+  --btn-bg: linear-gradient(135deg, var(--spino-crest), var(--spino-crest-dark));
+  --btn-border-color: var(--spino-crest-dark);
+  --btn-hover-color: #fff8eb;
+  --btn-hover-bg: var(--spino-deep);
+  --btn-hover-border-color: var(--spino-deep);
+  --btn-focus-shadow-rgb: 214, 107, 45;
   --btn-active-color: #ffffff;
-  --btn-active-bg: #004422; /* Verde más oscuro */
-  --btn-active-border-color: #004422;
+  --btn-active-bg: var(--spino-forest);
+  --btn-active-border-color: var(--spino-forest);
   --btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
   --btn-disabled-color: #ffffff;
   --btn-disabled-bg: #cccccc;
@@ -105,19 +158,27 @@ button:not(:disabled) {
 }
 
 input {
-  border: 1px solid #006633; /* Verde institucional */
+  border: 1px solid rgba(47, 93, 80, 0.35);
   outline: none;
-  padding: 10px;
-  border-radius: 3px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: rgba(255, 248, 235, 0.88);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75);
+}
+
+input:focus {
+  border-color: var(--spino-crest);
+  box-shadow: 0 0 0 0.25rem rgba(214, 107, 45, 0.18);
 }
 
 .card {
   box-shadow:
-    0 0 4px 0 rgb(0 0 0 / 8%),
-    0 2px 4px 0 rgb(0 0 0 / 12%);
-  border-radius: 3px;
-  background: #ffffff; /* Fondo blanco institucional */
-  border: 1px solid #006633; /* Borde verde */
+    0 20px 48px rgba(31, 58, 57, 0.12),
+    0 6px 14px rgba(36, 29, 26, 0.1);
+  border-radius: 24px;
+  background: linear-gradient(180deg, rgba(255, 248, 235, 0.9), rgba(239, 225, 198, 0.82));
+  border: 1px solid rgba(47, 93, 80, 0.18);
+  backdrop-filter: blur(10px);
 }
 
 .image-container {
@@ -129,6 +190,6 @@ input {
 .image-container img {
   display: inline-block;
   width: 100%;
-  border: 2px solid #ffd700; /* Marco amarillo institucional */
-  border-radius: 4px;
+  border: 2px solid rgba(214, 107, 45, 0.38);
+  border-radius: 14px;
 }

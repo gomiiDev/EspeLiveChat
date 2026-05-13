@@ -23,6 +23,20 @@ function stopTyping() {
 let isTyping = false;
 let typingTimeout = null;
 
+function sendMessage() {
+  const cleanMessage = getCleanMessage();
+
+  if (!cleanMessage) {
+    messageInput.value = "";
+    stopTyping();
+    return;
+  }
+
+  stopTyping();
+  socket.emit("message", cleanMessage);
+  messageInput.value = "";
+}
+
 messageInput.addEventListener("input", () => {
   if (!isTyping) {
     isTyping = true;
@@ -35,18 +49,15 @@ messageInput.addEventListener("input", () => {
 });
 
 // --- Send message ---
-send.addEventListener("click", () => {
-  const cleanMessage = getCleanMessage();
+send.addEventListener("click", sendMessage);
 
-  if (!cleanMessage) {
-    messageInput.value = "";
-    stopTyping();
+messageInput.addEventListener("keydown", (event) => {
+  if (event.key !== "Enter" || event.shiftKey) {
     return;
   }
 
-  stopTyping();
-  socket.emit("message", cleanMessage);
-  messageInput.value = "";
+  event.preventDefault();
+  sendMessage();
 });
 
 // --- Receive: new message ---
@@ -61,4 +72,8 @@ socket.on("typing", ({ user }) => {
 
 socket.on("stopTyping", ({ user }) => {
   removeTypingUser(user);
+});
+
+socket.on("userCount", ({ total }) => {
+  renderUserCount(total);
 });

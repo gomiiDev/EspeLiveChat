@@ -1,53 +1,66 @@
 main {
-  margin-top: 50px;
+  position: relative;
+  z-index: 1;
+  min-height: calc(100vh - 88px);
+  margin-top: 0;
   display: flex;
   justify-content: center;
-  background-color: #ffffff; /* Fondo blanco institucional */
+  align-items: center;
+  padding: 32px 20px 56px;
 }
 
 main form {
-  width: 50%;
-  padding: 20px;
-  border: 2px solid #006633; /* Borde verde institucional */
-  border-radius: 8px;
-  background-color: #f9f9f9; /* Contraste suave */
+  width: min(100%, 560px);
+  padding: 28px;
+  border: 1px solid rgba(47, 93, 80, 0.2);
+  border-radius: 28px;
+  background:
+    linear-gradient(180deg, rgba(255, 248, 235, 0.94), rgba(239, 225, 198, 0.84));
+  position: relative;
+  overflow: hidden;
+}
+
+main form::before {
+  content: "";
+  position: absolute;
+  inset: -12% auto auto 68%;
+  width: 210px;
+  height: 210px;
+  background:
+    radial-gradient(circle, rgba(214, 107, 45, 0.3) 0%, rgba(214, 107, 45, 0) 72%),
+    url("../img/spino.png") center/contain no-repeat;
+  opacity: 0.24;
+  pointer-events: none;
 }
 
 main form .input-group label {
   display: block;
-  text-align: center;
-  margin-bottom: 5px;
+  text-align: left;
+  margin-bottom: 8px;
   font-weight: bold;
-  color: #006633; /* Verde institucional */
+  color: #1f3a39;
+  letter-spacing: 0.03em;
 }
 
 main form .input-group input {
   display: block;
   width: 100%;
-  padding: 8px 10px;
-  border: 1px solid #006633;
-  border-radius: 4px;
+  padding: 12px 14px;
+  border: 1px solid rgba(47, 93, 80, 0.28);
+  border-radius: 16px;
   outline: none;
   font-size: 1rem;
 }
 
 main form .button-container {
-  margin-top: 10px;
+  margin-top: 18px;
   text-align: center;
 }
 
 main form .button-container button {
-  background-color: #006633; /* Verde institucional */
-  color: #ffffff; /* Texto blanco */
-  font-weight: bold;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+  min-width: 220px;
 }
 
 main form .button-container button:hover {
-  background-color: #ffd700; /* Amarillo institucional al hover */
-  color: #000000; /* Texto negro para contraste */
+  transform: translateY(-1px);
 }

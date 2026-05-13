@@ -10,11 +10,17 @@ module.exports = (httpServer) => {
     return message.trim();
   };
 
+  const emitUserCount = () => {
+    io.emit("userCount", { total: io.engine.clientsCount });
+  };
+
   io.on("connection", (socket) => {
     const getUser = () => {
       const cookie = socket.request.headers.cookie || "";
       return cookie.split("=").pop();
     };
+
+    emitUserCount();
 
     socket.on("message", (message) => {
       const user = getUser();
@@ -39,6 +45,10 @@ module.exports = (httpServer) => {
     socket.on("stopTyping", () => {
       const user = getUser();
       socket.broadcast.emit("stopTyping", { user });
+    });
+
+    socket.on("disconnect", () => {
+      emitUserCount();
     });
   });
 };
