@@ -62,6 +62,13 @@ messageInput.addEventListener("keydown", (event) => {
   sendMessage();
 });
 
+// --- Receive: message history on connect ---
+socket.on("history", (messages) => {
+  messages.forEach(({ user, message, date }) => {
+    appendMessage({ user, message, date, isOwn: user === currentUser });
+  });
+});
+
 // --- Receive: new message ---
 socket.on("message", ({ user, message, date }) => {
   appendMessage({ user, message, date, isOwn: user === currentUser });
