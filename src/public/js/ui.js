@@ -181,3 +181,14 @@ function renderTypingIndicator() {
     typingIndicator.textContent = "Varios usuarios están escribiendo...";
   }
 }
+
+// --- System notification (e.g. user left) ---
+function appendSystemNotification(text) {
+  const notice = document.createElement("p");
+  notice.className = "system-notification";
+  notice.textContent = text;
+  allMessages.append(notice);
+  requestAnimationFrame(() => {
+    notice.scrollIntoView({ behavior: "smooth", block: "end" });
+  });
+}

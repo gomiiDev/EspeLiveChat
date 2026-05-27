@@ -79,6 +79,14 @@ module.exports = (httpServer) => {
       socket.broadcast.emit("stopTyping", { user });
     });
 
+    socket.on("logout", () => {
+      const user = getUser();
+      if (user) {
+        socket.broadcast.emit("userLeft", { user });
+      }
+      socket.disconnect(true);
+    });
+
     socket.on("disconnect", () => {
       emitUserCount();
     });

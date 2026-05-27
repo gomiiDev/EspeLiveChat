@@ -86,3 +86,21 @@ socket.on("stopTyping", ({ user }) => {
 socket.on("userCount", ({ total }) => {
   renderUserCount(total);
 });
+
+socket.on("userLeft", ({ user }) => {
+  appendSystemNotification(`${user} salió del chat`);
+});
+
+// --- Logout ---
+const logoutBtn = document.querySelector("#logout-btn");
+
+logoutBtn.addEventListener("click", async () => {
+  logoutBtn.disabled = true;
+  socket.emit("logout");
+
+  try {
+    await fetch("/logout", { method: "POST" });
+  } finally {
+    document.location.href = "/login";
+  }
+});

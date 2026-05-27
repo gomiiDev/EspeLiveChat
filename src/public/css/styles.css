@@ -29,6 +29,9 @@ body {
 header {
   position: relative;
   z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background:
     linear-gradient(110deg, rgba(31, 58, 57, 0.96), rgba(47, 93, 80, 0.92)),
     linear-gradient(180deg, var(--spino-deep), var(--spino-forest));
@@ -48,6 +51,25 @@ header::after {
   background:
     linear-gradient(90deg, transparent 0%, rgba(214, 107, 45, 0.18) 52%, transparent 100%);
   pointer-events: none;
+}
+
+.btn.logout {
+  position: absolute;
+  right: 20px;
+  z-index: 1;
+  font-size: 0.8rem;
+  padding: 0.3rem 0.9rem;
+  --btn-color: #fff8eb;
+  --btn-bg: rgba(255, 255, 255, 0.12);
+  --btn-hover-color: #ffffff;
+  --btn-hover-bg: rgba(214, 107, 45, 0.75);
+  --btn-hover-border-color: transparent;
+  --btn-focus-shadow-rgb: 214, 107, 45;
+  --btn-active-color: #ffffff;
+  --btn-active-bg: rgba(143, 47, 40, 0.85);
+  --btn-active-border-color: transparent;
+  border-color: rgba(255, 255, 255, 0.28);
+  box-shadow: none;
 }
 
 .button-container {

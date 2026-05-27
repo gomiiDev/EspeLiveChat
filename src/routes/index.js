@@ -56,6 +56,13 @@ router.post("/register", async (req, res) => {
   }
 });
 
+// ── Logout ───────────────────────────────────────────────────────────────────
+
+router.post("/logout", (req, res) => {
+  res.clearCookie("username");
+  res.status(200).json({ ok: true });
+});
+
 // ── Login ─────────────────────────────────────────────────────────────────────
 
 router.get("/login", isAlreadyLoggedIn, (req, res) => {
