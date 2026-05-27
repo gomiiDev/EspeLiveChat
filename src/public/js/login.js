@@ -16,16 +16,12 @@ function getFormValues() {
   return {
     username: document.querySelector("#username").value.trim(),
     password: document.querySelector("#password").value,
-    confirmPassword: document.querySelector("#confirm-password").value,
   };
 }
 
-function validateForm({ username, password, confirmPassword }) {
+function validateForm({ username, password }) {
   if (!username) return "El nombre de usuario es obligatorio";
-  if (username.length < 2) return "El nombre de usuario debe tener al menos 2 caracteres";
   if (!password) return "La contraseña es obligatoria";
-  if (password.length < 8) return "La contraseña debe tener al menos 8 caracteres";
-  if (password !== confirmPassword) return "Las contraseñas no coinciden";
   return null;
 }
 
@@ -44,16 +40,16 @@ form.addEventListener("submit", async (e) => {
   submitBtn.disabled = true;
 
   try {
-    const response = await fetch("/register", {
+    const response = await fetch("/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username: values.username, password: values.password }),
+      body: JSON.stringify(values),
     });
 
     const data = await response.json();
 
     if (!response.ok) {
-      showError(data.error || "Error al crear la cuenta");
+      showError(data.error || "Error al iniciar sesión");
       return;
     }
 
@@ -64,4 +60,3 @@ form.addEventListener("submit", async (e) => {
     submitBtn.disabled = false;
   }
 });
-

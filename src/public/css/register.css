@@ -64,3 +64,31 @@ main form .button-container button {
 main form .button-container button:hover {
   transform: translateY(-1px);
 }
+
+.form-error {
+  color: #c0392b;
+  font-size: 0.875rem;
+  margin: 8px 0 0;
+  text-align: center;
+}
+
+.auth-link {
+  margin-top: 16px;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #1f3a39;
+}
+
+.auth-link a {
+  color: #2f5d50;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.auth-link a:hover {
+  text-decoration: underline;
+}
+
+.input-group + .input-group {
+  margin-top: 16px;
+}
